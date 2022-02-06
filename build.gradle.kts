@@ -5,7 +5,7 @@ plugins {
     application
 }
 
-group = "me.xjxm701"
+group = "info.juanmendez"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -13,7 +13,12 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+
     testImplementation(kotlin("test"))
+
+    //For runBlockingTest, CoroutineDispatcher etc.
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
 }
 
 tasks.test {

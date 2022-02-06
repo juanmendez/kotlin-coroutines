@@ -1,4 +1,6 @@
-fun main(args: Array<String>) {
+import kotlinx.coroutines.runBlocking
+
+fun main(args: Array<String>) = runBlocking {
     println("Hello World!")
 
     // Try adding program arguments via Run/Debug configuration.
