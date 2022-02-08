@@ -1,3 +1,4 @@
+import kotlin.test.assertEquals
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
@@ -11,6 +12,8 @@ class MainTest {
 
     @Test
     fun `say hello world asyncronosly`() = runTest {
-        sayHelloWorldAsync()
+        val result = sayHelloWorldAsync()
+
+        assertEquals(result, "hello world")
     }
 }

@@ -43,28 +43,21 @@ suspend fun usingCoroutines() = coroutineScope {
 }
 
 // lets do a simple example
-suspend fun sayHelloWorldAsync() = coroutineScope {
-    var helloWorld = "!"
-
-    val job1 = launch {
-        delay(2000L)
-        helloWorld += " world"
-        println(helloWorld)
+suspend fun sayHelloWorldAsync(): String {
+    suspend fun fun1(): String {
+        delay(2000)
+        return "hello"
     }
 
-    val job2 = launch {
-        delay(1000L)
-        helloWorld += "hello"
-        println(helloWorld)
+    suspend fun fun2(): String {
+        delay(2500)
+        return "world"
     }
 
-    // both coroutines run concurrently
-    println(helloWorld)
+    val string1 = fun2()
+    val string2 = fun1()
 
-    // lets join all jobs and wait
-    joinAll(job1, job2).apply {
-        println("completed: $helloWorld")
-    }
+    return "$string1 $string2"
 }
 
 fun usingThreads() {
