@@ -33,4 +33,5 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
+    applicationDefaultJvmArgs = listOf("-Dkotlinx.coroutines.debug")
 }
