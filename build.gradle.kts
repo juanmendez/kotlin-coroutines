@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.10"
     application
+    id("org.openjfx.javafxplugin") version "0.0.10"
 }
 
 group = "info.juanmendez"
@@ -10,6 +11,11 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+javafx {
+    version = "17"
+    modules = listOf("javafx.controls")
 }
 
 dependencies {
@@ -33,4 +39,5 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
+    applicationDefaultJvmArgs = listOf("-Dkotlinx.coroutines.debug")
 }
