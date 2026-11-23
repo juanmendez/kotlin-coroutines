@@ -1,5 +1,6 @@
 import java.util.Random
 import kotlin.system.measureTimeMillis
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -20,19 +21,19 @@ class MainTest {
         // here result is just assigned, not awaited, and suspend with return type
         // is treated as a future
         suspend fun doWorkOne(): Int {
-            delay(1000)
+            delay(1000.milliseconds)
             println("working 1 ${Thread.currentThread().name}")
             return Random(System.currentTimeMillis()).nextInt(42)
         }
 
         suspend fun doWorkTwo(): Int {
-            delay(10)
+            delay(10.milliseconds)
             println("working 2 ${Thread.currentThread().name}")
             return Random(System.currentTimeMillis()).nextInt(42)
         }
 
         fun doWorkThreeAsync(): Deferred<Int> = async {
-            delay(300)
+            delay(300.milliseconds)
             println("working 3 ${Thread.currentThread().name}")
             return@async Random(System.currentTimeMillis()).nextInt(42)
         }
