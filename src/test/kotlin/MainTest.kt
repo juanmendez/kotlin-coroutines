@@ -1,3 +1,5 @@
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancelAndJoin
@@ -13,7 +15,7 @@ class MainTest {
     @Test
     fun `wait for coroutine to be done`() = runTest {
         val job = launch {
-            delay(1000)
+            delay(1000.milliseconds)
             println("hello world")
         }
 
@@ -28,7 +30,7 @@ class MainTest {
         // you have to check for cancellation, so it can be cancelled
         val job = launch {
             repeat(1000) {
-                delay(10)
+                delay(10.milliseconds)
                 print(".")
             }
         }
@@ -45,10 +47,10 @@ class MainTest {
     @Test
     fun `how to timeout`() = runTest {
         var times = 0
-        val job = withTimeoutOrNull(97) {
+        val job = withTimeoutOrNull(97.milliseconds) {
             repeat(1000) {
                 print("${++times}, ")
-                delay(5)
+                delay(5.milliseconds)
             }
         }
 
@@ -62,10 +64,10 @@ class MainTest {
         var times = 0
         try {
             // when a coroutine cancels without completion, this is when the exception gets caught
-            withTimeout(97) {
+            withTimeout(97.milliseconds) {
                 repeat(1000) {
                     print("${++times}, ")
-                    delay(5)
+                    delay(5.milliseconds)
                 }
             }
         } catch (e: TimeoutCancellationException) {
@@ -73,18 +75,19 @@ class MainTest {
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @Test
     fun `breaking the rules of structured concurrency` () = runTest {
 
         suspend  fun runWithGlobalScope() {
             GlobalScope.launch {
                 println("scope 1")
-                delay(1000)
+                delay(1000.milliseconds)
             }
 
             GlobalScope.launch {
                 println("scope 2")
-                delay(2000)
+                delay(2000.milliseconds)
             }
 
             println("scope 0")
@@ -112,12 +115,12 @@ class MainTest {
         suspend  fun runWithLocalScope()  = coroutineScope {
             launch {
                 println("scope 1")
-                delay(1000)
+                delay(1000.milliseconds)
             }
 
             launch {
                 println("scope 2")
-                delay(2000)
+                delay(2000.milliseconds)
             }
 
             println("scope 0")
