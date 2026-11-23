@@ -1,9 +1,12 @@
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
 class MainTest {
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `wait for coroutine to be done`() = runTest {
         // if we only use the same scope, then we run into issues while cancelling.
@@ -17,16 +20,16 @@ class MainTest {
         activity.onDock()
         fragment.onDock()
 
-        delay(2000)
+        delay(2000.milliseconds)
 
         fragment.onUnDock()
         println("fragment is in the background, $currentTime")
 
-        delay(500)
+        delay(500.milliseconds)
         println("fragment is in the foreground, $currentTime")
         fragment.onDock()
 
-        delay(2000)
+        delay(2000.milliseconds)
         println("both views are in the background, $currentTime")
         fragment.onUnDock()
         activity.onUnDock()
